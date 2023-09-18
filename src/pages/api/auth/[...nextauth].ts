@@ -5,9 +5,8 @@ import {mockProviders} from "next-auth/client/__tests__/helpers/mocks";
 export default NextAuth({
     providers: [
         CredentialsProvider({
-            id: "",
-            type: "credentials",
             name: "Login",
+
             credentials: {
                 username: { label: "Username", type: "text", placeholder: "jsmith" },
                 password: {  label: "Password", type: "password" }
