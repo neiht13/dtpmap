@@ -21,7 +21,6 @@ import OrderList from "@/components/OrderList";
 import {useSession} from "next-auth/react";
 
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
-    console.log(children)
     const { data: session, status } = useSession()
 
     return (

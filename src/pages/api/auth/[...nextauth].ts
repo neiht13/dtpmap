@@ -1,6 +1,11 @@
+'use sever';
+
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import {mockProviders} from "next-auth/client/__tests__/helpers/mocks";
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 export default NextAuth({
     providers: [
@@ -14,7 +19,11 @@ export default NextAuth({
 
             async authorize(credentials, req) {
                 // Add logic here to look up the user from the credentials supplied
-                const user = { id: "1", name: "thien", email: "@example.com" }
+                const user = { id: "1", name: "thien", email: "@example.com" , role: "admin"}
+
+                const allUsers = await prisma.user.findMany()
+                console.log("allUsers", allUsers)
+                console.log("user", allUsers)
 
                 if (user) {
                     // Any object returned will be saved in `user` property of the JWT
@@ -54,7 +63,7 @@ export default NextAuth({
             }
             return token
         },
-        async session({ session, token, user }) {
+        async session({ session, user }) {
             // Send properties to the client, like an access_token from a provider.
             return session
         }

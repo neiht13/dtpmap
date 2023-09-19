@@ -3839,8 +3839,7 @@ function RowMenu({row}) {
       </MenuButton>
       <Menu size="sm" sx={{ minWidth: 140 }}>
         <MenuItem
-            onClick={() => {
-              console.log(row);setOpen2(true)}}
+            onClick={() => setOpen2(true)}
         >Edit</MenuItem>
         <MenuItem>Rename</MenuItem>
         <MenuItem>Move</MenuItem>
