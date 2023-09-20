@@ -19,13 +19,22 @@ import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
 import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import CreditCardRoundedIcon from '@mui/icons-material/CreditCardRounded';
 import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
 import { closeSidebar } from '@/components/utils';
 import {useState} from "react";
-import { Link } from '@mui/joy';
+import Link from 'next/link'
+import Divider from "@mui/joy/Divider";
+import Avatar from "@mui/joy/Avatar";
+import Typography from "@mui/joy/Typography";
+import IconButton from "@mui/joy/IconButton";
+import {signOut, useSession} from "next-auth/react";
+import Button from "@mui/joy/Button";
 
 export default function SecondSidebar() {
     const [select, setSelect] = useState()
+
+    const { data: session, status } = useSession()
 
     return (
     <React.Fragment>
@@ -84,7 +93,7 @@ export default function SecondSidebar() {
             Dashboard
           </ListSubheader>
           <ListItem>
-              <Link>
+              <Link href={""}>
                   <ListItemButton>
                       <ListItemDecorator>
                           <BubbleChartIcon />
@@ -130,12 +139,14 @@ export default function SecondSidebar() {
             Workspace
           </ListSubheader>
           <ListItem>
+              <Link href='/account'>
             <ListItemButton onClick={() => closeSidebar()}>
               <ListItemDecorator>
                 <PeopleRoundedIcon />
               </ListItemDecorator>
-              <ListItemContent>Groups</ListItemContent>
+              <ListItemContent>Account</ListItemContent>
             </ListItemButton>
+              </Link>
           </ListItem>
           <ListItem>
             <ListItemButton onClick={() => closeSidebar()}>
@@ -156,7 +167,7 @@ export default function SecondSidebar() {
               </Link>
           </ListItem>
           <ListItem>
-              <a href="/map" >
+              <Link href="/map" >
 
               <ListItemButton onClick={() => closeSidebar()}>
               <ListItemDecorator>
@@ -164,10 +175,31 @@ export default function SecondSidebar() {
               </ListItemDecorator>
               <ListItemContent>Analytics</ListItemContent>
             </ListItemButton>
-              </a>
+              </Link>
           </ListItem>
+
         </List>
+          <Divider />
+          {session &&
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                  <Avatar
+                      variant="outlined"
+                      size="sm"
+                      src={session?.user?.image || ""}
+                  />
+                  <Box sx={{ minWidth: 0, flex: 1 }}>
+                      <Typography level="title-sm">{session?.user?.name}</Typography>
+                      <Typography level="body-xs">{session?.user?.email}</Typography>
+                  </Box>
+                  <IconButton size="sm" variant="plain" color="neutral" onClick={e=> signOut({
+                      callbackUrl: "/login"
+                  })}>
+                      <LogoutRoundedIcon />
+                  </IconButton>
+              </Box>
+          }
       </Sheet>
+
     </React.Fragment>
   );
 }

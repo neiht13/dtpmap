@@ -7,32 +7,31 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default NextAuth({
+// @ts-ignore
+export const authOptions = {
+
     providers: [
         CredentialsProvider({
             name: "Login",
-
             credentials: {
                 username: { label: "Username", type: "text", placeholder: "jsmith" },
                 password: {  label: "Password", type: "password" }
             },
 
             async authorize(credentials, req) {
-                // Add logic here to look up the user from the credentials supplied
                 const user = { id: "1", name: "thien", email: "@example.com" , role: "admin"}
 
-                const allUsers = await prisma.user.findMany()
+                const allUsers = await prisma.user.findUnique({
+                    where: {
+                        username: credentials?.username,
+                    }
+                })
                 console.log("allUsers", allUsers)
-                console.log("user", allUsers)
 
-                if (user) {
-                    // Any object returned will be saved in `user` property of the JWT
-                    return user
+                if (allUsers?.password === credentials?.password && allUsers?.status) {
+                    return allUsers
                 } else {
-                    // If you return null then an error will be displayed advising the user to check their details.
                     return null
-
-                    // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
                 }
             }
         })
@@ -42,30 +41,28 @@ export default NextAuth({
         signIn: '/login',
     },
     callbacks: {
-        async signIn({user, account, profile, email, credentials}) {
-            const isAllowedToSignIn = true
-            if (isAllowedToSignIn) {
-                return true
-            } else {
-                // Return false to display a default error message
-                return false
-                // Or you can return a URL to redirect to:
-                // return '/unauthorized'
-            }
-        },
-        async redirect({url, baseUrl}) {
-            return baseUrl
-        },
-        async jwt({ token, account }) {
-            // Persist the OAuth access_token to the token right after signin
-            if (account) {
-                token.accessToken = account.access_token
-            }
-            return token
-        },
-        async session({ session, user }) {
-            // Send properties to the client, like an access_token from a provider.
-            return session
+        // @ts-ignore
+
+        async jwt({ token, user }) {
+        /* Step 1: update the token based on the user object */
+        if (user) {
+            token.role = user.role;
+            token.department = user.department;
         }
-    }
-})
+        return token;
+    },
+        // @ts-ignore
+
+        session({ session, token }) {
+        /* Step 2: update the session.user based on the token object */
+        if (token && session.user) {
+            session.user.role = token.role;
+            session.user.department = token.department;
+        }
+        return session;
+    },
+},
+
+}
+// @ts-ignore
+export default NextAuth(authOptions);

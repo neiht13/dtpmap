@@ -1,4 +1,3 @@
-
 datasource db {
   provider = "mongodb"
   url      = env("MONGODB_URI")
@@ -8,24 +7,32 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 model Post {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   slug     String    @unique
   title    String
   body     String
-  author   User      @relation(fields: [authorId], references: [id])
   authorId String    @db.ObjectId
   comments Comment[]
 }
 
+model Department {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  departmentId String @unique @db.ObjectId
+  name         String
+  adress       String?
+}
+
 model User {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  email   String   @unique
-  username    String?
-  name    String?
-  password    String?
-  posts   Post[]
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  email        String?
+  username     String     @unique
+  name         String?
+  password     String?
+  image        String?
+  role         String?
+  status       Boolean?
+  department   String?
 }
 
 model Comment {
@@ -35,3 +42,20 @@ model Comment {
   postId  String @db.ObjectId
 }
 
+model ListLocation {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  stt      String?
+  name1    String?
+  name2    String?
+  name3    String?
+  lat      String?
+  long     String?
+  FPT      String?
+  SCTV     String?
+  VTVCab   String?
+  VMS      String?
+  FPT_2    String?
+  SCTV_2   String?
+  VTVCab_2 String?
+  VMS_2    String?
+}

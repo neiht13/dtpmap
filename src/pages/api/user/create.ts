@@ -6,10 +6,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const result = await prisma.user.create({
             data: {
-                username: 'thein',
-                name: "Thien",
+                username: 'naux',
+                name: "Naux",
                 email: 'thein@gmail.com',
-                password: "123"
+                password: "123",
+                role: 'user',
+                department: 'tpcl',
+                status: false
             },
         }).finally(async () => {
             await prisma.$disconnect()

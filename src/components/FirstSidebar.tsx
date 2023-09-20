@@ -61,9 +61,11 @@ export default function FirstSidebar() {
       <MuiLogo />
       <List size="sm" sx={{ '--ListItem-radius': '6px', '--List-gap': '8px' }}>
         <ListItem>
+            <Link href='/'>
           <ListItemButton>
             <HomeRoundedIcon />
           </ListItemButton>
+            </Link>
         </ListItem>
         <ListItem>
           <ListItemButton selected variant="soft" onClick={() => openSidebar()}>
