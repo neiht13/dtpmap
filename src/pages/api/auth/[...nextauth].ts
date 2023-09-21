@@ -3,7 +3,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import {mockProviders} from "next-auth/client/__tests__/helpers/mocks";
-import { PrismaClient } from '@prisma/client'
+import {PrismaClient} from "../../../../prisma/generated/client";
 
 const prisma = new PrismaClient()
 
