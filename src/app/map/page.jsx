@@ -17,7 +17,6 @@ export default function MapPage({}) {
 
     useEffect(() => {
         fetchData()
-        console.log("call 2 times")
     }, []);
     useEffect(() => {
         if('geolocation' in navigator) {
@@ -60,16 +59,16 @@ export default function MapPage({}) {
                             <LayersControl position="topright">
                                 <LayersControl.Overlay checked name="Street">
                                     <TileLayer
-                                        url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
-                                        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                                        url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                                        attribution="PHT"
                                         maxZoom={20}
                                         subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
                                     />
                                 </LayersControl.Overlay>
                                 <LayersControl.Overlay name="Satellite">
                                     <TileLayer
-                                        url="http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-                                        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                                        url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+                                        attribution="PHT"
                                         maxZoom={20}
                                         subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
                                     />
