@@ -73,7 +73,8 @@ export default function JoyOrderDashboardTemplate() {
             }
             ).then( async r => {
             const result = await r.json();
-            setUsers(result.result)
+            fetchUsers()
+            // setUsers(result.result)
         })
     }
     
@@ -191,7 +192,7 @@ export default function JoyOrderDashboardTemplate() {
     }
 
     return (
-       <>
+       <Sheet sx={{overflow: 'auto'}}>
 
            <Table
                aria-labelledby="tableTitle"
@@ -324,6 +325,6 @@ export default function JoyOrderDashboardTemplate() {
                ))}
                </tbody>
            </Table>
-       </>
+       </Sheet>
     );
 }

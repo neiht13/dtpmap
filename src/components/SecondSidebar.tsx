@@ -32,7 +32,7 @@ import {signOut, useSession} from "next-auth/react";
 import Button from "@mui/joy/Button";
 
 export default function SecondSidebar() {
-    const [select, setSelect] = useState()
+    const [select, setSelect] = useState(0)
 
     const { data: session, status } = useSession()
 
@@ -94,7 +94,10 @@ export default function SecondSidebar() {
           </ListSubheader>
           <ListItem>
               <Link href={""}>
-                  <ListItemButton>
+                  <ListItemButton selected={select === 1} onClick={e=>{
+                      setSelect(1)
+                      closeSidebar()
+                  }}>
                       <ListItemDecorator>
                           <BubbleChartIcon />
                       </ListItemDecorator>
@@ -104,8 +107,12 @@ export default function SecondSidebar() {
 
           </ListItem>
           <ListItem>
-            <ListItemButton onClick={() => closeSidebar()}>
-              <ListItemDecorator>
+
+              <ListItemButton selected={select === 2} onClick={e=>{
+                  setSelect(3)
+                  closeSidebar()
+              }}>
+                  <ListItemDecorator>
                 <InsertChartIcon />
               </ListItemDecorator>
               <ListItemContent>Analytics</ListItemContent>
@@ -140,8 +147,11 @@ export default function SecondSidebar() {
           </ListSubheader>
           <ListItem>
               <Link href='/account'>
-            <ListItemButton onClick={() => closeSidebar()}>
-              <ListItemDecorator>
+                  <ListItemButton selected={select === 6} onClick={e=>{
+                      setSelect(6)
+                      closeSidebar()
+                  }}>
+                  <ListItemDecorator>
                 <PeopleRoundedIcon />
               </ListItemDecorator>
               <ListItemContent>Account</ListItemContent>
@@ -149,31 +159,45 @@ export default function SecondSidebar() {
               </Link>
           </ListItem>
           <ListItem>
-            <ListItemButton onClick={() => closeSidebar()}>
+              <Link href='/home'>
+
+                  <ListItemButton selected={select === 7} onClick={e=>{
+                      setSelect(7)
+                      closeSidebar()
+                  }}>
               <ListItemDecorator>
                 <BadgeRoundedIcon />
               </ListItemDecorator>
-              <ListItemContent>Authentication</ListItemContent>
+              <ListItemContent>Danh sách</ListItemContent>
             </ListItemButton>
+              </Link>
           </ListItem>
           <ListItem>
-              <Link href='sign-up'>
-            <ListItemButton onClick={() => closeSidebar()}>
-              <ListItemDecorator>
+              <Link href='/sign-up'>
+
+                  <ListItemButton selected={select === 8} onClick={e=>{
+                      setSelect(8)
+                      closeSidebar()
+                  }}>
+                      <ListItemDecorator>
                 <CreditCardRoundedIcon />
               </ListItemDecorator>
-              <ListItemContent>Billing</ListItemContent>
+              <ListItemContent>Đăng ký</ListItemContent>
             </ListItemButton>
               </Link>
           </ListItem>
           <ListItem>
               <Link href="/map" >
 
-              <ListItemButton onClick={() => closeSidebar()}>
-              <ListItemDecorator>
+
+                  <ListItemButton selected={select === 9} onClick={e=>{
+                      setSelect(9)
+                      closeSidebar()
+                  }}>
+                      <ListItemDecorator>
                 <AnalyticsRoundedIcon />
               </ListItemDecorator>
-              <ListItemContent>Analytics</ListItemContent>
+              <ListItemContent>Bản đồ</ListItemContent>
             </ListItemButton>
               </Link>
           </ListItem>

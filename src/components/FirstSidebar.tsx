@@ -18,12 +18,15 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import SupportRoundedIcon from '@mui/icons-material/SupportRounded';
 
 import MuiLogo from '@/components/MuiLogo';
-import { openSidebar } from '@/components/utils';
-import {Button, Link} from "@mui/joy";
+import {closeSidebar, openSidebar} from '@/components/utils';
+import {Button} from "@mui/joy";
 import {signIn} from "next-auth/react";
+import {useState} from "react";
+import Link from "next/link";
 
 
 export default function FirstSidebar() {
+    const [select, setSelect] = useState(0)
   return (
     <Sheet
       className="FirstSidebar"
@@ -62,18 +65,27 @@ export default function FirstSidebar() {
       <List size="sm" sx={{ '--ListItem-radius': '6px', '--List-gap': '8px' }}>
         <ListItem>
             <Link href='/'>
-          <ListItemButton>
-            <HomeRoundedIcon />
+                <ListItemButton selected={select === 1} onClick={e=>{
+                    setSelect(1)
+                    closeSidebar()
+                }}>
+                <HomeRoundedIcon />
           </ListItemButton>
             </Link>
         </ListItem>
         <ListItem>
-          <ListItemButton selected variant="soft" onClick={() => openSidebar()}>
+            <ListItemButton selected={select === 2} onClick={e=>{
+                setSelect(2)
+                openSidebar()
+            }}>
             <MapRoundedIcon />
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton onClick={() => openSidebar()}>
+            <ListItemButton selected={select === 3} onClick={e=>{
+                setSelect(3)
+                openSidebar()
+            }}>
             <DynamicFeedRoundedIcon />
           </ListItemButton>
         </ListItem>
@@ -96,11 +108,12 @@ export default function FirstSidebar() {
             <SettingsRoundedIcon />
           </ListItemButton>
         </ListItem>
+        <ListItem>
+          <ListItemButton  onClick={() => signIn()}>
+              <Avatar variant="outlined" size="sm" src="/static/images/avatar/3.jpg" />
+          </ListItemButton>
+        </ListItem>
       </List>
-      <Divider />
-        <Button onClick={() => signIn()}>
-            <Avatar variant="outlined" size="sm" src="/static/images/avatar/3.jpg" />
-        </Button>
     </Sheet>
   );
 }

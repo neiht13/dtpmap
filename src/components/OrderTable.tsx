@@ -3828,7 +3828,19 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
 // @ts-ignore
 function RowMenu({row}) {
   const [open2, setOpen2] = React.useState(false);
+  const [location, setLocation] = useState([10, 105]);
 
+  useEffect(() => {
+    if('geolocation' in navigator) {
+      // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        const { latitude, longitude } = coords;
+        console.log('{ latitude, longitude }',  latitude+"-"+ longitude )
+        // @ts-ignore
+        setLocation([parseFloat(latitude), parseFloat(longitude) ]);
+      })
+    }
+  }, []);
   return (
     <Dropdown>
       <MenuButton
@@ -3850,70 +3862,63 @@ function RowMenu({row}) {
         <ModalDialog aria-labelledby="filter-modal" layout="center">
           <ModalClose />
           <Typography id="filter-modal" level="h2">
-            Filters
+            Chỉnh sửa
           </Typography>
-          <List
-              key={row?.id}
-              size="sm"
-              sx={{
-                '--ListItem-paddingX': 0,
-              }}
-          >
-            <ListItem
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'start',
-                }}
-            >
-              <ListItemContent sx={{ display: 'flex', gap: 2, alignItems: 'start' }}>
-                <ListItemDecorator>
-                  <Avatar size="sm">{row?.customer?.initial}</Avatar>
-                </ListItemDecorator>
-                <div>
-                  <Typography fontWeight={600} gutterBottom>
-                    {row?.customer?.name}
-                  </Typography>
-                  <Typography level="body-xs" gutterBottom>
-                    {row?.customer?.email}
-                  </Typography>
-                  <Box
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: 0.5,
-                        mb: 1,
-                      }}
-                  >
-                    <Typography level="body-xs">{row?.date}</Typography>
-                    <Typography level="body-xs">&bull;</Typography>
-                    <Typography level="body-xs">{row?.id}</Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                    <Link level="body-sm" component="button">
-                      Download
-                    </Link>
-                    <RowMenu row={row}/>
-                  </Box>
-                </div>
-              </ListItemContent>
-              <Chip
-                  variant="soft"
-                  size="sm"
+          <form onSubmit={e=>{
+            e.preventDefault();
+          }
+          }>
+            <FormControl id="stt">
+              <FormLabel>STT</FormLabel>
+              <Input name="text" type="text" placeholder="text"
+                     required
+              />
+            </FormControl>
+            <br/>
+            <FormControl id="name1">
+              <FormLabel>Tên cấp 1</FormLabel>
+              <Input name="text" type="text" placeholder="text"
+                     required
+              />
+            </FormControl>
+            <br/>
+            <FormControl id="name2">
+              <FormLabel>Tên cấp 2</FormLabel>
+              <Input name="text" type="text" placeholder="text"
+              />
+            </FormControl>
+            <br/>
+            <FormControl id="name3">
+              <FormLabel>Tên cấp 3</FormLabel>
+              <Input name="text" type="text" placeholder="text"
+              />
+            </FormControl>
+            <br/>
 
-              >
-                {row?.status}
-              </Chip>
-            </ListItem>
-            <ListDivider />
-          </List>
-          <Divider sx={{ my: 2 }} />
-          <Sheet sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Button color="primary" onClick={() => setOpen2(false)}>
-              Submit
-            </Button>
-          </Sheet>
+            <FormControl id="lat">
+              <FormLabel>Lat</FormLabel>
+              <Input name="text" type="text" placeholder="text"
+                     required
+                     value={location[0]}
+                     endDecorator={<Button onClick={e=>alert(JSON.stringify(location))}>Lat hiện tại</Button>}
+              />
+            </FormControl>
+            <br/>
+            <FormControl id="name3">
+              <FormLabel>Long</FormLabel>
+              <Input name="text" type="text" placeholder="text"
+                     required
+                     value={location[1]}
+                     endDecorator={<Button>Long hiện tại</Button>}
+              />
+            </FormControl>
+            <br/>
+
+            <Sheet sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Button sx={{ mt: 1 , alignSelf: 'center'}} type='submit'>1 2 3 Dzô</Button>
+
+            </Sheet>
+          </form>
         </ModalDialog>
       </Modal>
     </Dropdown>
@@ -3996,14 +4001,29 @@ export default function OrderTable() {
           <ModalDialog aria-labelledby="filter-modal" layout="center">
             <ModalClose />
             <Typography id="filter-modal" level="h2">
-              Filters
+              Chỉnh sửa
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Sheet sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              {renderFilters()}
-              <Button color="primary" onClick={() => setOpen(false)}>
-                Submit
-              </Button>
+              <form onSubmit={e=>{
+                e.preventDefault();
+              }
+              }>
+                <FormControl id="email">
+                  <FormLabel>Email</FormLabel>
+                  <Input name="text" type="email"
+                         required
+                  />
+                </FormControl>
+                <br/>
+                <FormControl id="password">
+                  <FormLabel>Password</FormLabel>
+                  <Input name="password" type="password" placeholder="password"
+                         required
+                  />
+                </FormControl>
+                <Button sx={{ mt: 1 , alignSelf: 'center'}} type='submit'>1 2 3 Dzô</Button>
+              </form>
             </Sheet>
           </ModalDialog>
         </Modal>

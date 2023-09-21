@@ -10,6 +10,7 @@ import Button from '@mui/joy/Button';
 import Link from '@mui/joy/Link';
 import {signIn} from "next-auth/react";
 import {useState} from "react";
+import {FormHelperText} from "@mui/joy";
 
 export default function Home() {
     const [username, setUsername] = useState("")
@@ -41,34 +42,42 @@ export default function Home() {
             >
                 <div>
                     <Typography level="h4" component="h1">
-                        <strong>Welcome back 👋</strong>
+                        <strong>VNPT Đồng Tháp xin chào  </strong>
                     </Typography>
-                    <Typography level="body-sm">Sign in to continue.</Typography>
+                    <Typography level="body-sm">Đăng nhập để tiếp tục.</Typography>
                 </div>
 
+                <form onSubmit={e=>{
+                    e.preventDefault();
+                    signIn('credentials', {username: username.split("@")[0], password})
+                    }
+                }>
                 <FormControl id="email">
-                    <FormLabel>Username</FormLabel>
-                    <Input name="text" type="text"
+                    <FormLabel>Email</FormLabel>
+                    <Input name="text" type="email"
                            value={username}
+                           required
                            onChange={e=>setUsername(e.target.value)}
                     />
+                    <FormHelperText>Với email VNPT, ví dụ: abc@vnpt.vn</FormHelperText>
                 </FormControl>
+                    <br/>
                 <FormControl id="password">
                     <FormLabel>Password</FormLabel>
                     <Input name="password" type="password" placeholder="password"
+                           required
                            value={password}
                            onChange={e=> setPassword(e.target.value)}
                     />
                 </FormControl>
-                <Button sx={{ mt: 1 }} onClick={e=>{
-                    signIn('credentials', {username, password})
-                }}>Login</Button>
+                <Button sx={{ mt: 1 , alignSelf: 'center'}} type='submit'>1 2 3 Dzô</Button>
+              </form>
                 <Typography
-                    endDecorator={<Link href="/sign-up">Sign up</Link>}
+                    endDecorator={<Link href="/sign-up">Đăng ký</Link>}
                     fontSize="sm"
                     sx={{ alignSelf: 'center' }}
                 >
-                    Don&apos;t have an account?
+                    Chưa có tài khoản?
                 </Typography>
             </Sheet>
         </Sheet>

@@ -50,9 +50,9 @@ export default function MapPage({}) {
     return (
         <Container>
             <Map style={{
-                width: '100%',
-                height: '100%'
-            }} width="800" height="400" markers={listLocation} center={DEFAULT_CENTER} zoom={15}>
+                width: '80vw',
+                height: '70vh'
+            }} width="80vw" height="80vh" markers={listLocation} center={DEFAULT_CENTER} zoom={15}>
                 {({TileLayer, Marker, Popup, LayersControl}) => {
                     return (
                         <>
