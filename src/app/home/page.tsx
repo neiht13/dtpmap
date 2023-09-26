@@ -49,7 +49,6 @@ export default function JoyOrderDashboardTemplate() {
 
     return (
        <>
-           <Sign/>
                     <OrderTable/>
                     <OrderList />
         </>

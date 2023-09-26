@@ -22,7 +22,7 @@ export default function Home() {
                 flexFlow: 'row nowrap',
                 justifyContent: 'center',
                 alignItems: 'center',
-                minHeight: '100vh',
+                minHeight: '70vh',
             }}
         >
             <Sheet
@@ -54,7 +54,7 @@ export default function Home() {
                 }>
                 <FormControl id="email">
                     <FormLabel>Email</FormLabel>
-                    <Input name="text" type="email"
+                    <Input name="text" type="email"  placeholder="username"
                            value={username}
                            required
                            onChange={e=>setUsername(e.target.value)}
