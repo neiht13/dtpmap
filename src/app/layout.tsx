@@ -9,7 +9,6 @@ import {Suspense} from "react";
 export const metadata: Metadata = {
     title: 'DTPMaps',
     description: 'DTPMaps',
-    manifest: "/manifest.json",
 };
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
