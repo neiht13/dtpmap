@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
-import Head from "next/head";
 import './global.css'
 import {SessionProvider} from "next-auth/react";
 import {NextAuthProvider} from "@/app/providers";
@@ -10,7 +9,7 @@ import {Suspense} from "react";
 export const metadata: Metadata = {
     title: 'DTPMaps',
     description: 'DTPMaps',
-    manifest: "/site.webmanifest",
+    manifest: "/manifest.json",
 };
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
