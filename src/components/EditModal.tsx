@@ -1,12 +1,12 @@
-"use client"
-
-import Map from '@/components/Map/Map';
-import {Container} from "@mui/joy";
-import Button from "@mui/joy/Button";
-import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import EditModal from "../../components/EditModal";
+import Dropdown from "@mui/joy/Dropdown";
+import MenuButton from "@mui/joy/MenuButton";
+import IconButton from "@mui/joy/IconButton";
+import SettingsIcon from "@mui/icons-material/Settings";
+import Menu from "@mui/joy/Menu";
+import MenuItem from "@mui/joy/MenuItem";
+import Divider from "@mui/joy/Divider";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
@@ -14,47 +14,24 @@ import Typography from "@mui/joy/Typography";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
+import Button from "@mui/joy/Button";
 import Sheet from "@mui/joy/Sheet";
 
+// @ts-ignore
+const EditModal = (props) => {
+    const {row, open, setOpen, location} = props
+    const [name1, setName1] = useState(row.name1)
+    const [name2, setName2] = useState(row.name2)
+    const [name3, setName3] = useState(row.name3)
+    const [stt, setStt] = useState(row.stt)
+    const [lat, setLat] = useState(row.lat)
+    const [long, setLong] = useState(row.long)
+    const [FPT, setFPT] = useState(row.FPT)
+    const [SCTV, setSCTV] = useState(row.SCTV)
+    const [VTVCab, setVTVCab] = useState(row.VTVCab)
+    const [VMS, setVMS] = useState(row.VMS)
 
 
-const DEFAULT_CENTER = [10.459,105.631]
-
-export default function MapPage({}) {
-    const [listLocation, setListLocation] = useState([])
-    const [location, setLocation] = useState([10, 105]);
-    const [open2, setOpen2] = React.useState(false);
-
-    const [name1, setName1] = useState("")
-    const [name2, setName2] = useState("")
-    const [name3, setName3] = useState("")
-    const [stt, setStt] = useState("")
-    const [lat, setLat] = useState("")
-    const [long, setLong] = useState("")
-    const [FPT, setFPT] = useState("")
-    const [SCTV, setSCTV] = useState("")
-    const [VTVCab, setVTVCab] = useState("")
-    const [VMS, setVMS] = useState("")
-
-    useEffect(() => {
-        fetchData()
-    }, []);
-    useEffect(() => {
-        if('geolocation' in navigator) {
-            // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
-            navigator.geolocation.getCurrentPosition(({ coords }) => {
-                const { latitude, longitude } = coords;
-                console.log('{ latitude, longitude }',  latitude+"-"+ longitude )
-                setLocation([parseFloat(latitude), parseFloat(longitude) ]);
-            })
-        }
-    }, []);
-    const fetchData = async () => {
-        fetch('/api/list-location/get-all').then( async r => {
-            const result = await r.json();
-            setListLocation(result.result)
-        })
-    }
     const handleSave = () =>{
         fetch('/api/list-location/edit',
             {
@@ -80,30 +57,12 @@ export default function MapPage({}) {
                 ) // body data type must match "Content-Type" header
             }
         ).then( async r => {
-            setOpen2(false)
+            setOpen(false)
             const result = await r.json();
         })
     }
-
-
-
-
-    const handleClickEdit = (row) => {
-        setOpen2(true)
-        setStt(row.stt)
-        setName1(row.name1)
-        setName2(row.name2)
-        setName3(row.name3)
-        setLat(row.lat)
-        setLong(row.long)
-        setFPT(row.FPT)
-        setSCTV(row.SCTV)
-        setVTVCab(row.VTVCab)
-        setVMS(row.VMS)
-    }
-    const EModal =(row) =>{
-        return (
-            <Modal open={open2} onClose={() => setOpen2(false)}>
+    return (
+            <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog aria-labelledby="filter-modal" layout="center">
                     <ModalClose />
                     <Typography id="filter-modal" level="h2">
@@ -211,82 +170,7 @@ export default function MapPage({}) {
                     </form>
                 </ModalDialog>
             </Modal>
-        )
-    }
-
-    function LocationMarker() {
-        console.log(location)
-        // return location === null ? null : (
-        //     <span sx={{filter: "hue-rotate(135deg)"}}>
-        //     <Marker icon={redIcon} position={location}>
-        //         <Popup>You are here</Popup>
-        //     </Marker>
-        //         </span>
-        // )
-
-        return null
-    }
-
-    return (
-        <Container>
-            <Map style={{
-                width: '80vw',
-                height: '70vh'
-            }} width="80vw" height="80vh" markers={listLocation} center={DEFAULT_CENTER} zoom={15}>
-                {({TileLayer, Marker, Popup, LayersControl}) => {
-                    return (
-                        <>
-                            <LayersControl position="topright">
-                                <LayersControl.Overlay checked name="Street">
-                                    <TileLayer
-                                        url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
-                                        attribution="PHT"
-                                        maxZoom={20}
-                                        subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
-                                    />
-                                </LayersControl.Overlay>
-                                <LayersControl.Overlay name="Satellite">
-                                    <TileLayer
-                                        url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-                                        attribution="PHT"
-                                        maxZoom={20}
-                                        subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
-                                    />
-                                </LayersControl.Overlay>
-                            </LayersControl>
-                            <EModal row={null}/>
-
-                            {
-                                listLocation.map(item => (
-                                    <Marker position={[parseFloat(item.lat), parseFloat(item.long)]}>
-                                        <Popup sx={{width: "80%", height: "80%"}}>
-                                            <strong>{item.name1}</strong>
-                                            <br/> {item.name2}
-                                            <br/> {item.name3}
-                                            <br/>
-                                            <div style={{
-                                                display: 'flex',
-                                                justifyContent: 'flex-end',
-                                            }}>
-                                                <Button
-                                                    color="primary"
-                                                    startDecorator={<DownloadRoundedIcon/>}
-                                                    size="sm"
-                                                    onClick={() => handleClickEdit(item)}
-                                                >
-                                                    Edit
-                                                </Button>
-
-                                            </div>
-                                        </Popup>
-                                    </Marker>)
-                                )
-                            }
-                            <LocationMarker/>
-                        </>
-                    );
-                }}
-            </Map>
-        </Container>
-    )
+    );
 }
+
+export default EditModal
