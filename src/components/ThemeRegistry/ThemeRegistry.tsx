@@ -16,11 +16,10 @@ import Typography from "@mui/joy/Typography";
 import ColorSchemeToggle from "@/components/ColorSchemeToggle";
 import Button from "@mui/joy/Button";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
-import OrderTable from "@/components/OrderTable";
-import OrderList from "@/components/OrderList";
 import {signOut, useSession} from "next-auth/react";
 import {redirect} from "next/navigation";
 import { usePathname } from 'next/navigation'
+import {useEffect, useState} from "react";
 
 
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
@@ -31,6 +30,14 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
     if (session === null && pathname !=="/login") {
          redirect('/login')
     }
+    const [supportsPwa, setSupportsPwa] = useState(false);
+
+    useEffect(() => {
+        if ("serviceWorker" in navigator && window.matchMedia("(display-mode: standalone)").matches) {
+            setSupportsPwa(true);
+            console.log("supportsPwa",supportsPwa)
+        }
+    }, []);
 
     return (
     <NextAppDirEmotionCacheProvider options={{ key: 'joy' }}>
@@ -122,6 +129,17 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
                                 >
                                     Download PDF
                                 </Button>
+                                {supportsPwa ? (
+                                    <Button
+                                        color="primary"
+                                        size="sm"
+                                        onClick={() => {
+                                            navigator.serviceWorker.register("/sw.js");
+                                        }}
+                                    >
+                                        Install PWA
+                                    </Button>
+                                ) : null}
                             </Box>
                             {children}
                         </Box>

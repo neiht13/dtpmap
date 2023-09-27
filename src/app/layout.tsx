@@ -1,5 +1,4 @@
-'user client'
-
+'use client'
 import * as React from 'react';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 import './global.css'
@@ -9,6 +8,7 @@ import Head from "next/head";
 
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
+
 
     return (
         <html lang="en">
@@ -21,9 +21,9 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
             <meta name="format-detection" content="telephone=no" />
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="msapplication-config" content="/icons/browserconfig.xml" />
-            <meta name="msapplication-TileColor" content="#2B5797" />
+            <meta name="msapplication-TileColor" content="#ff6347" />
             <meta name="msapplication-tap-highlight" content="no" />
-            <meta name="theme-color" content="#000000" />
+            <meta name="theme-color" content="#ff6347" />
 
             <link rel="apple-touch-icon" href="/vnpt_logo.png" />
             <link rel="apple-touch-icon" sizes="152x152" href="/vnpt_logo.png" />
@@ -33,7 +33,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
             <link rel="icon" type="image/png" sizes="32x32" href="/vnpt_logo.png" />
             <link rel="icon" type="image/png" sizes="16x16" href="/vnpt_logo.png" />
             <link rel="manifest" href="/manifest.json" />
-            <link rel="mask-icon" href="/vnpt_logo.png" color="#5bbad5" />
+            <link rel="mask-icon" href="/vnpt_logo.png" color="#ff6347" />
             <link rel="shortcut icon" href="/favicon.ico" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
 
@@ -49,6 +49,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
             />
         </head>
         <body>
+
             <Suspense>
             <NextAuthProvider>
                 <ThemeRegistry>{children}</ThemeRegistry>
