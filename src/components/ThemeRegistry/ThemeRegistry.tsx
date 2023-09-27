@@ -30,14 +30,7 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
     if (session === null && pathname !=="/login") {
          redirect('/login')
     }
-    const [supportsPwa, setSupportsPwa] = useState(false);
 
-    useEffect(() => {
-        if ("serviceWorker" in navigator && window.matchMedia("(display-mode: standalone)").matches) {
-            setSupportsPwa(true);
-            console.log("supportsPwa",supportsPwa)
-        }
-    }, []);
 
     return (
     <NextAppDirEmotionCacheProvider options={{ key: 'joy' }}>
@@ -129,17 +122,6 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
                                 >
                                     Download PDF
                                 </Button>
-                                {supportsPwa ? (
-                                    <Button
-                                        color="primary"
-                                        size="sm"
-                                        onClick={() => {
-                                            navigator.serviceWorker.register("/sw.js");
-                                        }}
-                                    >
-                                        Install PWA
-                                    </Button>
-                                ) : null}
                             </Box>
                             {children}
                         </Box>
