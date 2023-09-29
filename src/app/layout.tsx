@@ -13,6 +13,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
     return (
         <html lang="en">
         <head>
+            <title>DTPMaps App</title>
             <meta name="application-name" content="DTPMaps App" />
             <meta name="apple-mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -34,7 +35,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
             <link rel="icon" type="image/png" sizes="16x16" href="/vnpt_logo.png" />
             <link rel="manifest" href="/manifest.json" />
             <link rel="mask-icon" href="/vnpt_logo.png" color="#ff6347" />
-            <link rel="shortcut icon" href="/favicon.ico" />
+            <link rel="shortcut icon" href="/vnpt_logo.ico" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
 
             <meta property="og:type" content="website" />
