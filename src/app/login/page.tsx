@@ -11,6 +11,9 @@ import Link from '@mui/joy/Link';
 import {signIn} from "next-auth/react";
 import {useState} from "react";
 import {FormHelperText} from "@mui/joy";
+import {mockProviders} from "next-auth/client/__tests__/helpers/mocks";
+import callbackUrl = mockProviders.github.callbackUrl;
+import {log} from "util";
 
 export default function Home() {
     const [username, setUsername] = useState("")
@@ -49,7 +52,7 @@ export default function Home() {
 
                 <form onSubmit={e=>{
                     e.preventDefault();
-                    signIn('credentials', {username: username.split("@")[0], password})
+                    signIn('credentials', {username: username.split("@")[0], password, callbackUrl: '/'})
                     }
                 }>
                 <FormControl id="email">
