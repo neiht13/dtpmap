@@ -31,17 +31,38 @@ const theme = extendTheme({
     display: inter.style.fontFamily,
     code: sourceCodePro.style.fontFamily,
   },
+
   components: {
     JoyButton: {
       styleOverrides: {
         root: ({ ownerState }) => ({
           ...(ownerState.color === 'primary' && {
             backgroundColor: '#0066ff',
+
+          }),
+        }),
+      },
+    },
+    JoyFormLabel: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...({
+            marginTop: '12px',
+          }),
+        }),
+      },
+    },
+    JoyListItem: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...({
+            textDecoration: 'none !important'
           }),
         }),
       },
     },
   },
 });
+
 
 export default theme;

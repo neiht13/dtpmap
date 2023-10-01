@@ -14,9 +14,9 @@ import {
     ModalClose,
     Typography,
 } from "@mui/joy";
-import { LayersControl, Marker, Popup, TileLayer } from "react-leaflet";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import Map from '@/components/Map/Map';
+import Header from "../../components/Header";
 
 const DEFAULT_CENTER = [10.459, 105.631];
 
@@ -107,8 +107,19 @@ export default function MapPage() {
         return null;
     };
 
+    function handleClickEdit(item) {
+        
+    }
+    const positions = [
+        { lat: 51.505, lon: -0.09, text: 'Marker 1' },
+        { lat: 51.51, lon: -0.1, text: 'Marker 2' },
+        { lat: 51.515, lon: -0.1, text: 'Marker 3' },
+    ];
+
     return (
         <Container>
+            <Header location={"Bản đồ"}/>
+
             <Map
                 style={{ width: "80vw", height: "70vh" }}
                 width="80vw"

@@ -26,8 +26,7 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
     const { data: session, status } = useSession()
     const pathname = usePathname()
     console.log(pathname)
-    debugger;
-    if (session === null && pathname !=="/login") {
+    if (session === null && pathname !=="/login" && pathname !=="/sign-up") {
          redirect('/login')
     }
 
@@ -42,7 +41,6 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
             <CssBaseline />
             <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
                     <>
-                    <Header />
                     <FirstSidebar />
                     <SecondSidebar />
                         <Box
@@ -71,58 +69,7 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
                                 gap: 1,
                             }}
                         >
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <Breadcrumbs
-                                    size="sm"
-                                    aria-label="breadcrumbs"
-                                    separator={<ChevronRightRoundedIcon />}
-                                >
-                                    <Link
-                                        underline="none"
-                                        color="neutral"
-                                        href="/"
-                                        aria-label="Home"
-                                    >
-                                        <HomeRoundedIcon />
-                                    </Link>
-                                    <Link
-                                        underline="hover"
-                                        color="neutral"
-                                        href="/"
-                                        fontSize={12}
-                                        fontWeight={500}
-                                    >
-                                        Dashboard
-                                    </Link>
-                                    <Typography color="primary" fontWeight={500} fontSize={12}>
-                                        Orders
-                                    </Typography>
-                                </Breadcrumbs>
-                                <ColorSchemeToggle
-                                    sx={{ ml: 'auto', display: { xs: 'none', md: 'inline-flex' } }}
-                                />
-                            </Box>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    my: 1,
-                                    gap: 1,
-                                    flexDirection: { xs: 'column', sm: 'row' },
-                                    alignItems: { xs: 'start', sm: 'center' },
-                                    flexWrap: 'wrap',
-                                    justifyContent: 'space-between',
-                                }}
-                            >
-                                <Typography level="h2">Orders</Typography>
-                                <Button
-                                    color="primary"
-                                    startDecorator={<DownloadRoundedIcon />}
-                                    size="sm"
-                                    onClick={()=> alert(location)}
-                                >
-                                    Download PDF
-                                </Button>
-                            </Box>
+
                             {children}
                         </Box>
                 </>

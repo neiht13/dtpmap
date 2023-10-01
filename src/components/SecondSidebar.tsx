@@ -160,7 +160,6 @@ export default function SecondSidebar() {
           </ListItem>
           <ListItem>
               <Link href='/home'>
-
                   <ListItemButton selected={select === 7} onClick={e=>{
                       setSelect(7)
                       closeSidebar()

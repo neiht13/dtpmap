@@ -1,23 +1,49 @@
 'use client'
-
-import * as React from 'react';
-import Sheet from '@mui/joy/Sheet';
-import Typography from '@mui/joy/Typography';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import Input from '@mui/joy/Input';
-import Button from '@mui/joy/Button';
-import Link from '@mui/joy/Link';
-import {signIn} from "next-auth/react";
-import {useState} from "react";
-import {FormHelperText} from "@mui/joy";
-import {mockProviders} from "next-auth/client/__tests__/helpers/mocks";
-import callbackUrl = mockProviders.github.callbackUrl;
-import {log} from "util";
+import React, { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import {
+    Sheet,
+    Typography,
+    FormControl,
+    FormLabel,
+    Input,
+    Button,
+    Link,
+    Alert,
+    FormHelperText,
+} from '@mui/joy';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+    const [credentials, setCredentials] = useState({ username: '', password: '' });
+    const router = useRouter();
+
+    const handleInputChange = (e:any) => {
+        const { name, value } = e.target;
+        setCredentials({ ...credentials, [name]: value });
+    };
+
+    const handleLogin = async (e:any) => {
+        e.preventDefault();
+        try {
+            const result = await signIn('credentials', {
+                ...credentials,
+                username: credentials.username.split('@')[0],
+                redirect: false,
+            });
+
+            if (result?.error) {
+                toast.error('Sai email hoặc mật khẩu!');
+            } else {
+                router.push('/');
+            }
+        } catch (error) {
+            console.error('Đã xảy ra lỗi:', error);
+        }
+    };
+
     return (
         <Sheet
             sx={{
@@ -28,6 +54,8 @@ export default function Home() {
                 minHeight: '70vh',
             }}
         >
+            <ToastContainer />
+
             <Sheet
                 sx={{
                     width: 300,
@@ -45,36 +73,44 @@ export default function Home() {
             >
                 <div>
                     <Typography level="h4" component="h1">
-                        <strong>VNPT Đồng Tháp xin chào  </strong>
+                        <strong>VNPT Đồng Tháp xin chào</strong>
                     </Typography>
                     <Typography level="body-sm">Đăng nhập để tiếp tục.</Typography>
                 </div>
+                <Alert color="danger" variant="outlined">
+                    Sai email hoặc mật khẩu!
+                </Alert>
 
-                <form onSubmit={e=>{
-                    e.preventDefault();
-                    signIn('credentials', {username: username.split("@")[0], password, callbackUrl: '/'})
-                    }
-                }>
-                <FormControl id="email">
-                    <FormLabel>Email</FormLabel>
-                    <Input name="text" type="email"  placeholder="username"
-                           value={username}
-                           required
-                           onChange={e=>setUsername(e.target.value)}
-                    />
-                    <FormHelperText>Với email VNPT, ví dụ: abc@vnpt.vn</FormHelperText>
-                </FormControl>
-                    <br/>
-                <FormControl id="password">
-                    <FormLabel>Password</FormLabel>
-                    <Input name="password" type="password" placeholder="password"
-                           required
-                           value={password}
-                           onChange={e=> setPassword(e.target.value)}
-                    />
-                </FormControl>
-                <Button sx={{ mt: 1 , alignSelf: 'center'}} type='submit'>1 2 3 Dzô</Button>
-              </form>
+                <form onSubmit={handleLogin}>
+                    <FormControl id="email">
+                        <FormLabel>Email</FormLabel>
+                        <Input
+                            name="username"
+                            type="email"
+                            placeholder="username"
+                            value={credentials.username}
+                            required
+                            onChange={handleInputChange}
+                        />
+                        <FormHelperText>Với email VNPT, ví dụ: abc@vnpt.vn</FormHelperText>
+                    </FormControl>
+
+                    <FormControl id="password">
+                        <FormLabel>Password</FormLabel>
+                        <Input
+                            name="password"
+                            type="password"
+                            placeholder="password"
+                            required
+                            value={credentials.password}
+                            onChange={handleInputChange}
+                        />
+                    </FormControl>
+
+                    <Button sx={{ mt: 1, alignSelf: 'center' }} type="submit">
+                        1 2 3 Dzô
+                    </Button>
+                </form>
                 <Typography
                     endDecorator={<Link href="/sign-up">Đăng ký</Link>}
                     fontSize="sm"
@@ -86,3 +122,4 @@ export default function Home() {
         </Sheet>
     );
 }
+

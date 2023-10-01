@@ -4,16 +4,9 @@ import {PrismaClient} from "../../../../prisma/generated/client";
 const prisma = new PrismaClient()
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
+        const body = req.body
         const result = await prisma.user.create({
-            data: {
-                username: 'naux',
-                name: "Naux",
-                email: 'thein@gmail.com',
-                password: "123",
-                role: 'user',
-                department: 'tpcl',
-                status: false
-            },
+            data: body,
         }).finally(async () => {
             await prisma.$disconnect()
         })

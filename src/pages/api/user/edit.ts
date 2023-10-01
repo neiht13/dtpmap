@@ -9,15 +9,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const session = await getServerSession(req, res, authOptions)
     if (session) {
         try {
-            const { username, status } = req.body
+            const body = req.body
+            delete body.id;
             const result = await prisma.user.update({
-                data: { status},
-                where: { username }
+                data: body,
+                where: { username: body.username }
             }).finally(async () => {
                 await prisma.$disconnect()
             })
             res.status(200).json({result})
         } catch (err) {
+            console.log(err)
             res.status(500).json({error: 'failed to load data'})
         }
     } else {
