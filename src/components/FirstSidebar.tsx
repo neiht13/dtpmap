@@ -110,7 +110,7 @@ export default function FirstSidebar() {
         </ListItem>
         <ListItem>
           <ListItemButton  onClick={() => signIn()}>
-              <Avatar variant="outlined" size="sm" src="/static/images/avatar/3.jpg" />
+              <Avatar variant="outlined" size="sm"/>
           </ListItemButton>
         </ListItem>
       </List>

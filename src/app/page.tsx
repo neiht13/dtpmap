@@ -49,7 +49,9 @@ export default function JoyOrderDashboardTemplate() {
 
     return (
        <>
-                    <OrderTable/>
+           <Header location="Trang chủ" children={undefined}  />
+
+           <OrderTable/>
                     <OrderList />
         </>
     );

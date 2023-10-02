@@ -44,7 +44,7 @@ import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import ListDivider from "@mui/joy/ListDivider";
 import {useEffect, useState} from "react";
 import {fetchData} from "next-auth/client/_utils";
-import {Skeleton} from "@mui/joy";
+import {Autocomplete, CircularProgress, Skeleton} from "@mui/joy";
 
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -289,29 +289,49 @@ export default function OrderTable() {
             setRows2(result.result)
         })
     }
-  const renderFilters = () => (
+    const uniqueName1Set = new Set();
+    if (rows2 && rows2.length > 0) {
+        rows2.forEach((item: any) => {
+            uniqueName1Set.add(item.name1);
+        });
+    }
+    const uniqueName1List = Array.from(uniqueName1Set);
+    console.log('console.log(uniqueName1List)', uniqueName1List);
+
+    const [, set] = useState()
+    // @ts-ignore
+    const renderFilters = () => (
     <React.Fragment>
       <FormControl size="sm">
-        <FormLabel>Status</FormLabel>
-        <Select
-          size="sm"
-          placeholder="Filter by status"
-          slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
-        >
-          <Option value="paid">Paid</Option>
-          <Option value="pending">Pending</Option>
-          <Option value="refunded">Refunded</Option>
-          <Option value="cancelled">Cancelled</Option>
-        </Select>
+        <FormLabel>Tên chính</FormLabel>
+          <Autocomplete
+              placeholder="Combo box"
+              options={uniqueName1List}
+              sx={{ width: 200 }}
+              loading={loading}
+              onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                      event.defaultMuiPrevented = true;
+                      // @ts-ignore
+                      console.log('tttt',event.target?.value)
+                  }
+              }}
+              onChange={(event, value) => {
+                  // @ts-ignore
+                  console.log('tttt',value)
+                  }
+              }
+          />
       </FormControl>
 
       <FormControl size="sm">
-        <FormLabel>Category</FormLabel>
+        <FormLabel>Tên 1</FormLabel>
         <Select size="sm" placeholder="All">
-          <Option value="all">All</Option>
-          <Option value="refund">Refund</Option>
-          <Option value="purchase">Purchase</Option>
-          <Option value="debit">Debit</Option>
+            <Option value="">All</Option>
+            {uniqueName1List.map(item=>(
+                // @ts-ignore
+                <Option value={item}>{item}</Option>
+            ))}
         </Select>
       </FormControl>
 

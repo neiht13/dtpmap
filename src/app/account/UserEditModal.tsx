@@ -11,9 +11,9 @@ import {
     Select,
     Sheet,
     Switch,
-    Button, Option,
+    Button, Option, CardCover, CardContent, Card, IconButton,
 } from '@mui/joy';
-import {Done} from '@mui/icons-material';
+import {Clear, Delete, Done} from '@mui/icons-material';
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Checkbox from "@mui/joy/Checkbox";
@@ -30,6 +30,11 @@ export default function UserEditModal({open, onClose, userData, onSave}) {
         department: '',
         status: false
     });
+    const onClose2 = () => {
+        onClose()
+        setImage('')
+        setImageUrl('')
+    }
     const department = [
         {
             departmentId: 'tpcl',
@@ -51,7 +56,7 @@ export default function UserEditModal({open, onClose, userData, onSave}) {
             departmentName: 'Huyện Thanh Bình',
         }
     ]
-    const [image, setImage] = useState()
+    const [image, setImage] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -76,26 +81,52 @@ export default function UserEditModal({open, onClose, userData, onSave}) {
             data.append('api_key', '922982469845971')
             data.append('upload_preset', 'j7xlhzak')
             data.append('file', e.target.files[0])
-            await fetch('https://api.cloudinary.com/v1_1/dt2vxc5jx/upload', {
+            await fetch('https://api.cloudinary.com/v1_1/dt2vxc5jx/image/upload', {
                 method: 'POST',
                 body: data
-            }).then(async r => {
+            })
+                .then(async r => {
                 const res = await r.json()
                 if (e.target.name === 'image') {
-                    setImageUrl(res.url)
+                    setImageUrl(res.secure_url)
                     setImage(e.target.files[0])
+                    setUserEdit({...userEdit, image: res.secure_url});
                     console.log(imageUrl)
                 }
             })
         }
     }
 
+    const deleteImage = async (e: any) => {
+        let data = new FormData()
+        data.append('public_id', 'i6tqxbeflpqszrmxqpat')
+        data.append('api_key', '922982469845971')
+        const currentTimestamp = Date.now();
+        // // @ts-ignore
+        // data.append('timestamp', currentTimestamp)
+        //     const publicId = "dtp/bk6cjxvrz6vtqrxkuvfq";
+            await fetch('/api/image/signature').then(async r => {
+                const res = await r.json()
+                data.append('timestamp', res.timestamp)
+                data.append('signature', res.signature)
+
+                await fetch('https://api.cloudinary.com/v1_1/dt2vxc5jx/image/destroy', {
+                    method: 'POST',
+                    body: data
+                }).then(async r => {
+                    const res = await r.json()
+                    console.log(res)
+                })
+            })
+
+    }
+
     return (
-        <Modal open={open} onClose={onClose}>
+        <Modal open={open} onClose={onClose2} sx={{marginTop: '50px'}}>
             <ModalDialog aria-labelledby="user-edit-modal" layout="center">
                 <ModalClose/>
                 <Typography id="user-edit-modal" level="h2">
-                    Chỉnh sửa
+                    {userEdit.username ? "Chỉnh sửa" : "Thêm mới"}
                 </Typography>
                 <form style={{overflow: "scroll"}} onSubmit={handleSubmit}>
                     <FormControl id="username">
@@ -106,7 +137,7 @@ export default function UserEditModal({open, onClose, userData, onSave}) {
                             placeholder="username"
                             value={userEdit.username}
                             required
-                            disabled
+                            readOnly
                         />
                     </FormControl>
                     <FormControl id="email">
@@ -214,17 +245,32 @@ export default function UserEditModal({open, onClose, userData, onSave}) {
                             placeholder="file"
                             required
                             value={image}
+                            disabled={image !== ''}
                             onChange={e=> uploadImage(e)}
                         />
-                            <div className="mt-10 col-span-3" style={{position: 'relative', height: 200}}>
+                        {userEdit.image && <Card component="li" sx={{ minWidth: 300,  minHeight: 300, marginTop: '5px', flexGrow: 1 }}>
+                            <Button
+                                aria-label="bookmark Bahamas Islands"
+                                variant="plain"
+                                color="neutral"
+                                size="sm"
+                                sx={{ zIndex: 2, position: 'absolute', top: '0.875rem', right: '0.5rem' }}
+                                onClick={deleteImage}
+                            >
+                                <Clear />
+                            </Button>
+                            <CardCover>
                                 <Image
                                     alt="image"
-                                    src={'https://res.cloudinary.com/dt2vxc5jx/image/upload/v1696143224/dtp/v6lmjm70cppsdtggpw3c.jpg'}
-                                    layout="fill"
+                                    src={userEdit.image}
+                                    fill
                                     className="rounded"
+                                    loading="lazy"
                                     objectFit="contain"
                                 />
-                            </div>
+                            </CardCover>
+                        </Card>
+                        }
                     </FormControl>
                     <FormControl id="status">
                         <FormLabel>Trạng thái&nbsp;&nbsp;&nbsp;<Switch
