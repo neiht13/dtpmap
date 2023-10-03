@@ -302,7 +302,7 @@ export default function OrderTable() {
     };
 
     const handleChangeRowsPerPage = (event: any, newValue: number | null) => {
-        setRowsPerPage(parseInt(newValue?.toString(), 10));
+        if(newValue) setRowsPerPage(parseInt(newValue.toString(), 10));
         setPage(0);
     };
 
