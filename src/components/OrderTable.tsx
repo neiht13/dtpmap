@@ -646,6 +646,13 @@ export default function OrderTable() {
                 }
             )}
           </tbody>
+          
+          {loading && (
+              <>
+                  <Skeleton variant="text" />
+                  <Skeleton variant="text" />
+              </>
+          )}
             <tfoot>
             <tr>
                 <td colSpan={12}>
@@ -704,12 +711,6 @@ export default function OrderTable() {
             </tfoot>
         </Table>
 
-          {loading && (
-              <>
-                  <Skeleton variant="text" />
-                  <Skeleton variant="text" />
-              </>
-          )}
       </Sheet>
       {/*<Box*/}
       {/*  className="Pagination-laptopUp"*/}
