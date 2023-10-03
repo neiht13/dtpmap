@@ -29,8 +29,6 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
     if (session === null && pathname !=="/login" && pathname !=="/sign-up") {
          redirect('/login')
     }
-
-
     return (
     <NextAppDirEmotionCacheProvider options={{ key: 'joy' }}>
       {/*<CssVarsProvider theme={theme}>*/}

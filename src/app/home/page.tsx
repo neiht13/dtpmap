@@ -46,13 +46,22 @@ export default function JoyOrderDashboardTemplate() {
             </>
         )
     }
+    const { data: session, status } = useSession()
+
+    if (session && !session?.user?.role?.includes('Trụ điện lực')) {
+        return (
+            <>
+                Bạn không có quyền
+            </>
+        )
+    }
 
 
     return (
        <>
            <Header location="Trang chủ" children={undefined}  />
                     <OrderTable/>
-                    <OrderList />
+                    {/*<OrderList />*/}
         </>
     );
 }

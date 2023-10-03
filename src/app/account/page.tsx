@@ -15,7 +15,7 @@ import {
     Divider,
     Chip,
     Sheet,
-    Skeleton
+    Skeleton, Tooltip
 } from '@mui/joy';
 import {
     Add,
@@ -85,7 +85,9 @@ export default function JoyOrderDashboardTemplate() {
                     slots={{ root: IconButton }}
                     slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
                 >
+                    <Tooltip title="Thao tác" variant="soft">
                     <Settings />
+                    </Tooltip>
                 </MenuButton>
                 <Menu size="sm" sx={{ minWidth: 140 }}>
                     <MenuItem onClick={() => setIsEditModalOpen(true)}>Chỉnh sửa</MenuItem>

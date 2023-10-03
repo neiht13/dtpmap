@@ -41,7 +41,7 @@ export default function JoyOrderDashboardTemplate() {
         return (
             <>
                 Not signed in <br />
-                <Button onClick={() => signIn()}>Sign in</Button>
+                <Button href={'login'}>Sign in</Button>
             </>
         )
     }
@@ -51,8 +51,7 @@ export default function JoyOrderDashboardTemplate() {
        <>
            <Header location="Trang chủ" children={undefined}  />
 
-           <OrderTable/>
-                    <OrderList />
+          <Sign/>
         </>
     );
 }

@@ -30,6 +30,7 @@ import Typography from "@mui/joy/Typography";
 import IconButton from "@mui/joy/IconButton";
 import {signOut, useSession} from "next-auth/react";
 import Button from "@mui/joy/Button";
+import {Tooltip} from "@mui/joy";
 
 export default function SecondSidebar() {
     const [select, setSelect] = useState(0)
@@ -89,59 +90,7 @@ export default function SecondSidebar() {
             '--List-gap': '6px',
           }}
         >
-          <ListSubheader role="presentation" sx={{ fontWeight: 'lg' }}>
-            Dashboard
-          </ListSubheader>
-          <ListItem>
-              <Link href={""}>
-                  <ListItemButton selected={select === 1} onClick={e=>{
-                      setSelect(1)
-                      closeSidebar()
-                  }}>
-                      <ListItemDecorator>
-                          <BubbleChartIcon />
-                      </ListItemDecorator>
-                      <ListItemContent>Overview</ListItemContent>
-                  </ListItemButton>
-              </Link>
 
-          </ListItem>
-          <ListItem>
-
-              <ListItemButton selected={select === 2} onClick={e=>{
-                  setSelect(3)
-                  closeSidebar()
-              }}>
-                  <ListItemDecorator>
-                <InsertChartIcon />
-              </ListItemDecorator>
-              <ListItemContent>Analytics</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton selected>
-              <ListItemDecorator>
-                <ShoppingCartIcon />
-              </ListItemDecorator>
-              <ListItemContent>Orders</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={() => closeSidebar()}>
-              <ListItemDecorator>
-                <StarsIcon />
-              </ListItemDecorator>
-              <ListItemContent>Saved reports</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={() => closeSidebar()}>
-              <ListItemDecorator>
-                <AccountBoxIcon />
-              </ListItemDecorator>
-              <ListItemContent>User reports</ListItemContent>
-            </ListItemButton>
-          </ListItem>
           <ListSubheader role="presentation" sx={{ fontWeight: 700, mt: 2 }}>
             Workspace
           </ListSubheader>
@@ -154,7 +103,7 @@ export default function SecondSidebar() {
                   <ListItemDecorator>
                 <PeopleRoundedIcon />
               </ListItemDecorator>
-              <ListItemContent>Account</ListItemContent>
+              <ListItemContent>Tài khoản</ListItemContent>
             </ListItemButton>
               </Link>
           </ListItem>
@@ -217,7 +166,10 @@ export default function SecondSidebar() {
                   <IconButton size="sm" variant="plain" color="neutral" onClick={e=> signOut({
                       callbackUrl: "/login"
                   })}>
+                      <Tooltip sx={{zIndex: 10000}} title="Đăng xuất" variant="soft">
+
                       <LogoutRoundedIcon />
+                      </Tooltip>
                   </IconButton>
               </Box>
           }

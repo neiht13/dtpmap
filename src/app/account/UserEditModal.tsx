@@ -194,7 +194,7 @@ export default function UserEditModal({open, onClose, userData, onSave}) {
                                                     />
                                                 )}
                                                 <Checkbox
-
+                                                    id={item}
                                                     size="sm"
                                                     disableIcon
                                                     overlay
@@ -243,7 +243,6 @@ export default function UserEditModal({open, onClose, userData, onSave}) {
                             name="image"
                             type="file"
                             placeholder="file"
-                            required
                             value={image}
                             disabled={image !== ''}
                             onChange={e=> uploadImage(e)}
@@ -282,7 +281,7 @@ export default function UserEditModal({open, onClose, userData, onSave}) {
                     <FormControl id="department">
                         <FormLabel> Đơn vị</FormLabel>
 
-                        <Select defaultValue={userEdit.department} placeholder="Chọn đơn vị" name="department"
+                        <Select required defaultValue={userEdit.department} placeholder="Chọn đơn vị" name="department"
                                 onChange={handleChange}>
                             {
                                 department.map(item => (
