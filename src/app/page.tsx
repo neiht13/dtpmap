@@ -21,6 +21,7 @@ import Header from '@/components/Header';
 import ColorSchemeToggle from "@/components/ColorSchemeToggle";
 import {useEffect, useState} from "react";
 import {signIn, signOut, useSession} from "next-auth/react";
+import {ToastContainer} from "react-toastify";
 
 export default function JoyOrderDashboardTemplate() {
 
@@ -50,6 +51,7 @@ export default function JoyOrderDashboardTemplate() {
     return (
        <>
            <Header location="Trang chủ" children={undefined}  />
+           <ToastContainer />
 
           <Sign/>
         </>

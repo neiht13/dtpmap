@@ -20,6 +20,7 @@ import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import CreditCardRoundedIcon from '@mui/icons-material/CreditCardRounded';
 import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import PlaceIcon from '@mui/icons-material/Place';
 
 import { closeSidebar } from '@/components/utils';
 import {useState} from "react";
@@ -31,7 +32,6 @@ import IconButton from "@mui/joy/IconButton";
 import {signOut, useSession} from "next-auth/react";
 import Button from "@mui/joy/Button";
 import {Tooltip} from "@mui/joy";
-
 export default function SecondSidebar() {
     const [select, setSelect] = useState(0)
 
@@ -92,7 +92,7 @@ export default function SecondSidebar() {
         >
 
           <ListSubheader role="presentation" sx={{ fontWeight: 700, mt: 2 }}>
-            Workspace
+            Chức năng
           </ListSubheader>
           <ListItem>
               <Link href='/account'>
@@ -143,12 +143,27 @@ export default function SecondSidebar() {
                       closeSidebar()
                   }}>
                       <ListItemDecorator>
-                <AnalyticsRoundedIcon />
+                <PlaceIcon />
               </ListItemDecorator>
-              <ListItemContent>Bản đồ</ListItemContent>
+              <ListItemContent>Trụ điện lực </ListItemContent>
             </ListItemButton>
               </Link>
           </ListItem>
+            <ListItem>
+                <Link href="/3g" >
+
+
+                    <ListItemButton selected={select === 10} onClick={e=>{
+                        setSelect(10)
+                        closeSidebar()
+                    }}>
+                        <ListItemDecorator>
+                            <PlaceIcon />
+                        </ListItemDecorator>
+                        <ListItemContent>BTS 3G</ListItemContent>
+                    </ListItemButton>
+                </Link>
+            </ListItem>
 
         </List>
           <Divider />

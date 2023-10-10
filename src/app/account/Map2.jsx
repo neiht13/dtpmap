@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
-function Map2() {
+function x() {
     const positions = [
         { lat: 51.505, lon: -0.09, text: 'Marker 1' },
         { lat: 51.51, lon: -0.1, text: 'Marker 2' },

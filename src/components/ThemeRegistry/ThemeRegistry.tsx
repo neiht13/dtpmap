@@ -20,6 +20,7 @@ import {signOut, useSession} from "next-auth/react";
 import {redirect} from "next/navigation";
 import { usePathname } from 'next/navigation'
 import {useEffect, useState} from "react";
+import Sidebar from "@/components/Sidebar";
 
 
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
@@ -39,8 +40,9 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
             <CssBaseline />
             <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
                     <>
-                    <FirstSidebar />
-                    <SecondSidebar />
+                    {/*<FirstSidebar />*/}
+                    {/*<SecondSidebar />*/}
+                        <Sidebar/>
                         <Box
                             component="main"
                             className="MainContent"

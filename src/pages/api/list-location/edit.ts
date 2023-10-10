@@ -10,32 +10,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(401).json({error: 'not sign in'})
     }
     try {
-        const {
-            id,
-            stt,
-            name1,
-            name2,
-            name3,
-            lat,
-            long,
-            FPT,
-            SCTV,
-            VTVCab,
-            VMS
-        } = req.body
+        const body = req.body
+        const id = body.id;
+        delete body.id;
         const result = await prisma.listLocation.update({
-            data: {
-                stt,
-                name1,
-                name2,
-                name3,
-                lat,
-                long,
-                FPT,
-                SCTV,
-                VTVCab,
-                VMS
-            },
+            data: body,
             where: { id }
         }).finally(async () => {
             await prisma.$disconnect()

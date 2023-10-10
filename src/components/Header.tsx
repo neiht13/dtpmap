@@ -17,6 +17,8 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 // @ts-ignore
 const Header = ({location, children}) => {
@@ -49,7 +51,7 @@ const Header = ({location, children}) => {
                   display: 'flex',
                   my: 1,
                   gap: 1,
-                  flexDirection: { xs: 'column', sm: 'row' },
+                  flexDirection: { xs: 'row', sm: 'row' },
                   alignItems: { xs: 'start', sm: 'center' },
                   flexWrap: 'wrap',
                   justifyContent: 'space-between',
@@ -97,7 +99,16 @@ const Header = ({location, children}) => {
       <ColorSchemeToggle id={undefined} />
 
     </Sheet>
+          <ToastContainer />
       </>
   );
 }
 export default Header;
+
+export const toastRender = (style: string) =>{
+    if ("error") {
+        toast.error('Sai email hoặc mật khẩu!');
+    } else if ("success")  {
+        toast.success('Đăng nhập thành công');
+    }
+}

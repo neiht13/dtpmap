@@ -13,13 +13,12 @@ import {
     Alert,
     FormHelperText,
 } from '@mui/joy';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Header, {toastRender} from "@/components/Header";
 
 export default function Home() {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const router = useRouter();
-
+    const [loading, setLoading] = useState(false)
     const handleInputChange = (e:any) => {
         const { name, value } = e.target;
         setCredentials({ ...credentials, [name]: value });
@@ -27,16 +26,20 @@ export default function Home() {
 
     const handleLogin = async (e:any) => {
         e.preventDefault();
+        setLoading(true)
         try {
             const result = await signIn('credentials', {
                 ...credentials,
                 username: credentials.username.split('@')[0],
                 redirect: false,
             });
+            if (result) setLoading(false)
 
             if (result?.error) {
-                toast.error('Sai email hoặc mật khẩu!');
+                toastRender('error')
             } else {
+                toastRender('success')
+
                 router.push('/');
             }
         } catch (error) {
@@ -54,7 +57,7 @@ export default function Home() {
                 minHeight: '70vh',
             }}
         >
-            <ToastContainer />
+            <Header location={'Login'} children={undefined}/>
 
             <Sheet
                 sx={{
@@ -107,7 +110,7 @@ export default function Home() {
                         />
                     </FormControl>
 
-                    <Button sx={{ mt: 1, alignSelf: 'center' }} type="submit">
+                    <Button loading={loading} sx={{ mt: 1, alignSelf: 'center' }} type="submit">
                         1 2 3 Dzô
                     </Button>
                 </form>

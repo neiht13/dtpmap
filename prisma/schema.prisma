@@ -22,6 +22,10 @@ model Department {
   departmentId String @unique @db.ObjectId
   name         String
   adress       String?
+  userCreated  String?
+  dateCreated  String?
+  userEdited  String?
+  dateEdited  String?
 }
 
 model User {
@@ -34,6 +38,10 @@ model User {
   role         String[]
   status       Boolean?
   department   String?
+  userCreated  String?
+  dateCreated  String?
+  userEdited  String?
+  dateEdited  String?
 }
 
 model Comment {
@@ -59,4 +67,9 @@ model ListLocation {
   SCTV_2   String?
   VTVCab_2 String?
   VMS_2    String?
+  image String?
+  userCreated  String?
+  dateCreated  String?
+  userEdited  String?
+  dateEdited  String?
 }

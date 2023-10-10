@@ -8,8 +8,6 @@ import 'leaflet/dist/leaflet.css';
 const { MapContainer } = ReactLeaflet;
 
 const Map = ({ children, className, width, height, ...rest }) => {
-
-
   useEffect(() => {
     (async function init() {
       delete Leaflet.Icon.Default.prototype._getIconUrl;
