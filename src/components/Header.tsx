@@ -106,9 +106,9 @@ const Header = ({location, children}) => {
 export default Header;
 
 export const toastRender = (style: string) =>{
-    if ("error") {
+    if (style === "error") {
         toast.error('Sai email hoặc mật khẩu!');
-    } else if ("success")  {
+    } else if (style === "success")  {
         toast.success('Đăng nhập thành công');
     }
 }

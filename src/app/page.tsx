@@ -30,7 +30,6 @@ export default function JoyOrderDashboardTemplate() {
 
         const { data: session, status } = useSession()
 
-        console.log("session", session)
         if (session) {
             return (
                 <>
@@ -52,7 +51,6 @@ export default function JoyOrderDashboardTemplate() {
        <>
            <Header location="Trang chủ" children={undefined}  />
            <ToastContainer />
-
           <Sign/>
         </>
     );

@@ -149,7 +149,7 @@ const EditLocationModal = ({ locationData, onClose, onSave, open, location }) =>
     }
 
     return (
-        <Modal open={open} onClose={onClose2}>
+        <Modal open={open} onClose={onClose2}  sx={{marginTop: '50px'}}>
             <ModalDialog aria-labelledby="filter-modal" layout="center">
                 <ModalClose />
                 <Typography id="filter-modal" level="h2">
@@ -310,7 +310,7 @@ const EditLocationModal = ({ locationData, onClose, onSave, open, location }) =>
 
 
                     <Sheet sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <Button sx={{ mt: 1 , alignSelf: 'center'}} type='submit'>1 2 3 Dzô</Button>
+                        <Button sx={{ mt: 1 , alignSelf: 'center'}} type='submit'>Lưu</Button>
                     </Sheet>
                 </form>
             </ModalDialog>

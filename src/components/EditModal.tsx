@@ -164,7 +164,7 @@ const EditModal = (props) => {
                         <br/>
 
                         <Sheet sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                            <Button sx={{ mt: 1 , alignSelf: 'center'}} type='submit'>1 2 3 Dzô</Button>
+                            <Button sx={{ mt: 1 , alignSelf: 'center'}} type='submit'>Lưu</Button>
 
                         </Sheet>
                     </form>

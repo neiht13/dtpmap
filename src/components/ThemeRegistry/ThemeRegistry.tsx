@@ -42,7 +42,7 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
                     <>
                     {/*<FirstSidebar />*/}
                     {/*<SecondSidebar />*/}
-                        <Sidebar/>
+                    {session && <Sidebar/>}
                         <Box
                             component="main"
                             className="MainContent"
