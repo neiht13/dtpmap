@@ -18,7 +18,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
             <meta name="apple-mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-status-bar-style" content="default" />
             <meta name="apple-mobile-web-app-title" content="DTPMaps App" />
-            <meta name="description" content="Best PWA App in the world" />
+            <meta name="description" content="Quản lý bản đồ trụ VNPT ĐTP" />
             <meta name="format-detection" content="telephone=no" />
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="msapplication-config" content="/icons/browserconfig.xml" />
@@ -40,7 +40,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
 
             <meta property="og:type" content="website" />
             <meta property="og:title" content="DTPMaps App" />
-            <meta property="og:description" content="Best PWA App in the world" />
+            <meta property="og:description" content="Quản lý bản đồ trụ VNPT ĐTP" />
             <meta property="og:site_name" content="DTPMaps App" />
             <meta property="og:url" content="https://dtpmap.vercel.app" />
             <meta property="og:image" content="https://dtpmap.vercel.app/icons/apple-touch-icon.png" />

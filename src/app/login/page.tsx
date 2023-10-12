@@ -57,7 +57,6 @@ export default function Home() {
                 minHeight: '70vh',
             }}
         >
-            <Header location={'Login'} children={undefined}/>
 
             <Sheet
                 sx={{
@@ -111,7 +110,7 @@ export default function Home() {
                     </FormControl>
 
                     <Button loading={loading} sx={{ mt: 1, alignSelf: 'center' }} type="submit">
-                        1 2 3 Dzô
+                        Đăng nhập
                     </Button>
                 </form>
                 <Typography
