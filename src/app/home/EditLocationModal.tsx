@@ -32,6 +32,8 @@ const EditLocationModal = ({ locationData, onClose, onSave, open, location }) =>
             "SCTV": "",
             "VTVCab": "",
             "VMS": "",
+            "doCao": "",
+            "ngayThue": "",
             "userCreated": currentUser,
             "dateCreated": dayjs().format('DD/MM/YYYY'),
             "userEdited": currentUser,
@@ -231,6 +233,26 @@ const EditLocationModal = ({ locationData, onClose, onSave, open, location }) =>
                                     long hiện tại
                                 </Button>
                             }
+                        />
+                    </FormControl>
+
+                    <FormControl id="doCao">
+                        <FormLabel>Độ cao</FormLabel>
+                        <Input
+                            name="doCao"
+                            type="text"
+                            value={locationEdit.doCao}
+                            onChange={handleInputChange}
+                        />
+                    </FormControl>
+
+                    <FormControl id="ngayThue">
+                        <FormLabel>Ngày thuê</FormLabel>
+                        <Input
+                            name="ngayThue"
+                            type="date"
+                            value={locationEdit.ngayThue}
+                            onChange={handleInputChange}
                         />
                     </FormControl>
 

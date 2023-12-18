@@ -251,6 +251,10 @@ export default function MapPage() {
                                                         <br/>{item.name3}
                                                         <br/>
                                                     </Typography>
+                                                    <Typography level="body-sm">
+                                                        Độ cao: {item.doCao} | Ngày thuê: {item.ngayThue}
+                                                        <br/>
+                                                    </Typography>
                                                 </CardContent>
                                                 <CardOverflow>
 

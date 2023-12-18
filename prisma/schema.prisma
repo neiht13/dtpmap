@@ -68,6 +68,8 @@ model ListLocation {
   VTVCab_2 String?
   VMS_2    String?
   image String?
+  doCao String?
+  ngayThue String?
   userCreated  String?
   dateCreated  String?
   userEdited  String?
