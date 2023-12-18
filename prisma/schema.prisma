@@ -8,6 +8,15 @@ generator client {
   output   = "./generated/client"
 }
 
+model Post {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  slug     String    @unique
+  title    String
+  body     String
+  authorId String    @db.ObjectId
+  comments Comment[]
+}
+
 model Department {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
   departmentId String @unique @db.ObjectId
