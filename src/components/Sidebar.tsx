@@ -42,6 +42,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 import {useState} from "react";
 import {signOut, useSession} from "next-auth/react";
 import {Tooltip} from "@mui/joy";
+import {AnalyticsTwoTone} from "@mui/icons-material";
 
 function Toggler({
                      defaultExpanded = false,
@@ -213,7 +214,22 @@ export default function Sidebar() {
                                 <ListItemDecorator>
                                     <PlaceIcon />
                                 </ListItemDecorator>
-                                <ListItemContent>Trụ điện lực </ListItemContent>
+                                <ListItemContent>VNPT thuê trụ DN</ListItemContent>
+                            </ListItemButton>
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link href="/map" >
+
+
+                            <ListItemButton selected={select === 12} onClick={e=>{
+                                setSelect(12)
+                                closeSidebar()
+                            }}>
+                                <ListItemDecorator>
+                                    <PlaceIcon />
+                                </ListItemDecorator>
+                                <ListItemContent>DN thuê trụ VNPT </ListItemContent>
                             </ListItemButton>
                         </Link>
                     </ListItem>
@@ -229,6 +245,21 @@ export default function Sidebar() {
                                     <WifiTetheringIcon />
                                 </ListItemDecorator>
                                 <ListItemContent>BTS 3G</ListItemContent>
+                            </ListItemButton>
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link href="/baocao" >
+
+
+                            <ListItemButton selected={select === 13} onClick={e=>{
+                                setSelect(13)
+                                closeSidebar()
+                            }}>
+                                <ListItemDecorator>
+                                    <AnalyticsTwoTone />
+                                </ListItemDecorator>
+                                <ListItemContent>Báo cáo</ListItemContent>
                             </ListItemButton>
                         </Link>
                     </ListItem>
